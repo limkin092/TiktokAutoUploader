@@ -1,0 +1,16 @@
+{
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit",
+        },
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "ruff.path": ["${workspaceFolder}/.venv/bin/ruff", "${workspaceFolder}/.venv/Scripts/ruff"],
+    "ruff.importStrategy": "fromEnvironment",
+    "ruff.configurationPreference": "filesystemFirst",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}

@@ -6,15 +6,15 @@ class Config:
         "COOKIES_DIR": "./CookiesDir",
         "VIDEOS_DIR": "./VideosDirPath",
         "POST_PROCESSING_VIDEO_PATH": "./VideosDirPath",
-        "IMAGEMAGICK_FONT": "Arial", 
+        "IMAGEMAGICK_FONT": "Arial",
         "IMAGEMAGICK_FONT_SIZE": 80,
         "IMAGEMAGICK_TEXT_FOREGROUND_COLOR": "white",
         "IMAGEMAGICK_TEXT_BACKGROUND_COLOR": "black",
-        "TIKTOK_VIDEO_SIZE": (1920, 1080), 
+        "TIKTOK_VIDEO_SIZE": (1920, 1080),
         "TMP_YOUTUBE_VIDEO_DIR": "",
-        "LANG": "en", 
-        "TIKTOK_BASE_URL": "https://www.tiktok.com/upload?lang=", 
-        "IMAGEMAGICK_BINARY": ""
+        "LANG": "en",
+        "TIKTOK_BASE_URL": "https://www.tiktok.com/upload?lang=",
+        "IMAGEMAGICK_BINARY": "",
     }
 
     _EXCLUDE = ["#"]
@@ -35,9 +35,9 @@ class Config:
     def get():
         if not Config._instance:
             Config._instance = Config()
-        
+
         return Config._instance
-    
+
     @staticmethod
     def load(path: str):
         config = Config(path)
@@ -50,10 +50,14 @@ class Config:
                     if line.startswith(opt_name):
                         valid = True
                         if opt_name == "TIKTOK_DIM":
-                            config._insert_option(opt_name, tuple(line.split("=")[1].strip()))
+                            config._insert_option(
+                                opt_name, tuple(line.split("=")[1].strip())
+                            )
                         else:
-                            config._insert_option(opt_name, Config._parse_basic_option(line))
-                                                  
+                            config._insert_option(
+                                opt_name, Config._parse_basic_option(line)
+                            )
+
                 if not valid:
                     eprint("Error reading config file, Please check your config file!")
 
@@ -62,11 +66,11 @@ class Config:
 
     @staticmethod
     def _parse_basic_option(line: str):
-        return line.split("=")[1].strip().replace('"', '')
+        return line.split("=")[1].strip().replace('"', "")
 
     def get_option_by_name(self, opt_name: str):
         return self._options.get(opt_name)
-    
+
     def _insert_option(self, opt_name: str, value):
         self._options[opt_name] = value
 
@@ -79,7 +83,7 @@ class Config:
     def videos_dir(self):
         """Directory where videos are stored"""
         return self.get_option_by_name("VIDEOS_DIR")
-    
+
     @property
     def post_processing_video_path(self):
         """Directory where video are saved after processing"""
@@ -89,12 +93,12 @@ class Config:
     def imagemagick_font(self):
         """Font used for video overlays by ImageMagick lib"""
         return self.get_option_by_name("IMAGEMAGICK_FONT")
-    
+
     @property
     def imagemagick_font_size(self):
         """Font size used for video overlays by ImageMagick lib"""
         return self.get_option_by_name("IMAGEMAGICK_FONT_SIZE")
-    
+
     @property
     def imagemagick_text_foreground_color(self):
         """Text foreground colour used for video overlays by ImageMagick lib"""
@@ -104,17 +108,17 @@ class Config:
     def imagemagick_text_background_color(self):
         """Text background colour used for video overlays by ImageMagick lib"""
         return self.get_option_by_name("IMAGEMAGICK_TEXT_BACKGROUND_COLOR")
-    
+
     @property
     def tiktok_video_size(self) -> tuple:
-        """ Get tiktok dimension """
+        """Get tiktok dimension"""
         return self.get_option_by_name("TIKTOK_VIDEO_SIZE")
-    
+
     @property
     def tmp_youtube_video_dir(self):
         """Directory where YT videos are stored temporarily"""
         return self.get_option_by_name("TMP_YOUTUBE_VIDEO_DIR")
-    
+
     @property
     def lang_preference(self):
         """Language preference"""
@@ -127,5 +131,5 @@ class Config:
 
     @property
     def imagemagick_binary_path(self):
-        """ImageMagick Binary path """
+        """ImageMagick Binary path"""
         return self.get_option_by_name("IMAGEMAGICK_BINARY")
